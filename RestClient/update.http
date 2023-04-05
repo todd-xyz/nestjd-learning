@@ -1,0 +1,8 @@
+POST   http://localhost:3000/girl/update/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "new girl",
+    "age": 35,
+    "skill": "can do everything"
+}
