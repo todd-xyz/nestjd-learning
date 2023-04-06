@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, Session } 
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import * as svgCaptcha from "svg-captcha"
+
 import { Response } from 'express';
+
 
 @Controller('user')
 export class UserController {
@@ -11,18 +12,33 @@ export class UserController {
 
   @Get('code')
   createCode(@Req() req, @Res() res: Response, @Session() session) {
-    const captcha = svgCaptcha.create({
-      size: 4,
-      fontSize: 50,
-      width: 100,
-      height: 34,
-      background: '#cc9966'
-    })
+    const captcha = this.userService.createCode()
     session.code = captcha.text  //密码
     res.type('image/svg+xml')
     res.send(captcha.data)  //image
+  }
+
+  @Post("create")
+  createUSer(@Body() body, @Session() session) {
+
+    if (session.code.toLowerCase() === body.code.toLowerCase()) {
+       return {
+        code: 200,
+        message: '验证码正确'
+       }
+    }
+    else{
+      return {
+        code: 200,
+        message: '验证码错误'
+      }
+
+    }
+
+ 
 
   }
+
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
