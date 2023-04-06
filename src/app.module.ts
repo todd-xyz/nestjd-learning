@@ -3,6 +3,9 @@ import { GirlModule } from './girl/girl.module';
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { BoyModule } from './boy/boy.module';
 import { ConfigModule } from "./config/config.module"
+import { UserModule } from './user/user.module';
+
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -20,7 +23,9 @@ import { ConfigModule } from "./config/config.module"
     }),
     GirlModule,
     BoyModule,
-    ConfigModule.forRoot('xuetao')
+    UserModule,
+    ConfigModule.forRoot('xuetao'),
+   
   ],
   controllers: [],
   providers: [],
